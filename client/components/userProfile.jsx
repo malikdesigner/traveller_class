@@ -3,7 +3,6 @@ import { View, Text, TextInput, Image, TouchableOpacity, StyleSheet, ToastAndroi
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { CheckBox } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
-import Flag from 'react-native-country-flags';
 import apiUrl from './apiUrl';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
@@ -72,7 +71,10 @@ class UserProfile extends Component {
             }
         }
     };
-
+    handleIsCheckedToggle = () => {
+        const { isChecked } = this.state;
+        this.setState({ isChecked: !isChecked });
+    };
     handleBack = () => {
         this.setState({ step: this.state.step - 1 });
     };
@@ -106,7 +108,7 @@ class UserProfile extends Component {
                             <Text style={styles.tagline}>Travel with partner</Text>
 
                             <View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 10 }}>
-                                <TouchableOpacity style={styles.getStartedButton} onPress={handleNext}>
+                                <TouchableOpacity style={styles.getStartedButton} onPress={this.handleNext}>
                                     <Text style={styles.buttonTextLarge}>Get Started</Text>
                                     <Icon name="arrow-right" style={styles.arrowIcon} size={20} color="white" />
                                 </TouchableOpacity>
@@ -122,7 +124,7 @@ class UserProfile extends Component {
 
                             placeholder="First Name"
                             value={firstName}
-                            onChangeText={(text) => setFirstName(text)}
+                            onChangeText={(text) => this.setState({ firstName: text })}
                         />
                         <Text style={[styles.stepsHeading, { marginTop: 10, marginBottom: 10 }]}>Last Name</Text>
 
@@ -131,14 +133,14 @@ class UserProfile extends Component {
 
                             placeholder="Last Name"
                             value={lastName}
-                            onChangeText={(text) => setLastName(text)}
+                            onChangeText={(text) => this.setState({ lastName: text })}
                         />
 
-                        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+                        <TouchableOpacity style={styles.backButton} onPress={this.handleBack}>
                             <Icon name="arrow-left" style={styles.arrowIcon} size={20} color="white" />
                             <Text style={styles.buttonText}>Back</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.roundButton} onPress={handleNext}>
+                        <TouchableOpacity style={styles.roundButton} onPress={this.handleNext}>
                             <Text style={styles.buttonText}>Next</Text>
                             <Icon name="arrow-right" style={styles.arrowIcon} size={20} color="white" />
                         </TouchableOpacity>
@@ -160,7 +162,7 @@ class UserProfile extends Component {
                                 }}
                                 placeholder="Code"
                                 value={phoneCode}
-                                onChangeText={(text) => setPhoneCode(text)}
+                                onChangeText={(text) => this.setState({ phoneCode: text })}
                             />
 
                             {/* Phone Number Input */}
@@ -176,15 +178,15 @@ class UserProfile extends Component {
                                 }}
                                 placeholder="Phone Number"
                                 value={phoneNumber}
-                                onChangeText={(text) => setPhoneNumber(text)}
+                                onChangeText={(text) => this.setState({ phoneNumber: text })}
                             />
                         </View>
                         {/* Next Button */}
-                        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+                        <TouchableOpacity style={styles.backButton} onPress={this.handleBack}>
                             <Icon name="arrow-left" style={styles.arrowIcon} size={20} color="white" />
                             <Text style={styles.buttonText}>Back</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.roundButton} onPress={handleNext}>
+                        <TouchableOpacity style={styles.roundButton} onPress={this.handleNext}>
                             <Text style={styles.buttonText}>Next</Text>
                             <Icon name="arrow-right" style={styles.arrowIcon} size={20} color="white" />
                         </TouchableOpacity>
@@ -198,16 +200,16 @@ class UserProfile extends Component {
                             style={styles.input}
                             placeholder="Email Address"
                             value={email}
-                            onChangeText={(text) => setEmail(text)}
+                            onChangeText={(text) => this.setState({ email: text })}
                         />
                         <Text style={{ marginTop: 20, color: 'grey', alignContent: 'center', alignSelf: 'center' }}>
                             Your Ride, Your Way - Enter Your Email to Get Started.</Text>
 
-                        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+                        <TouchableOpacity style={styles.backButton} onPress={this.handleBack}>
                             <Icon name="arrow-left" style={styles.arrowIcon} size={20} color="white" />
                             <Text style={styles.buttonText}>Back</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.roundButton} onPress={handleNext}>
+                        <TouchableOpacity style={styles.roundButton} onPress={this.handleNext}>
                             <Text style={styles.buttonText}>Next</Text>
                             <Icon name="arrow-right" style={styles.arrowIcon} size={20} color="white" />
                         </TouchableOpacity>
@@ -221,17 +223,17 @@ class UserProfile extends Component {
                             placeholder="Password"
                             value={password}
                             secureTextEntry={true}
-                            onChangeText={(text) => setPassword(text)}
+                            onChangeText={(text) => this.setState({ password: text })}
                         />
                         {/* Add more fields for Step 2 */}
 
                         <Text style={{ marginTop: 20, color: 'grey', alignContent: 'center', alignSelf: 'center' }}>
                             Secure your gateway with a strong key</Text>
-                        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+                        <TouchableOpacity style={styles.backButton} onPress={this.handleBack}>
                             <Icon name="arrow-left" style={styles.arrowIcon} size={20} color="white" />
                             <Text style={styles.buttonText}>Back</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.roundButton} onPress={handleNext}>
+                        <TouchableOpacity style={styles.roundButton} onPress={this.handleNext}>
                             <Text style={styles.buttonText}>Next</Text>
                             <Icon name="arrow-right" style={styles.arrowIcon} size={20} color="white" />
                         </TouchableOpacity>
@@ -249,15 +251,15 @@ class UserProfile extends Component {
                                 </Text>
                             }
                             checked={isChecked} // Replace isChecked with your state variable for the checkbox
-                            onPress={() => setIsChecked(!isChecked)} // Replace setChecked with your state update function
+                            onPress={this.handleIsCheckedToggle}
                             containerStyle={{ backgroundColor: 'transparent', borderWidth: 0, marginTop: 20 }}
                         />
 
-                        <TouchableOpacity style={styles.backButton} onPress={handleBack}>
+                        <TouchableOpacity style={styles.backButton} onPress={this.handleBack}>
                             <Icon name="arrow-left" style={styles.arrowIcon} size={20} color="white" />
                             <Text style={styles.buttonText}>Back</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.roundButton} onPress={handleSubmit}>
+                        <TouchableOpacity style={styles.roundButton} onPress={this.handleSubmit}>
                             <Text style={styles.buttonText}>Submit</Text>
                         </TouchableOpacity>
                     </View>

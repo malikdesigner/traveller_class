@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    // password: "QWERT!@#$%",
-    password:"",
+     password: "QWERT!@#$%",
+   // password:"",
     database: "travel_appdb"
 });
 
